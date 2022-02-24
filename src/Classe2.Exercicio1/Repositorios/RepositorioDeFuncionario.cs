@@ -1,6 +1,6 @@
 ﻿using Classe2.Exercicio1.Entidades;
 
-namespace Classe2.Sistema
+namespace Classe2.Exercicio1.Repositorios
 {
     public class RepositorioDeFuncionario
     {
@@ -8,7 +8,7 @@ namespace Classe2.Sistema
 
         public void AdicionarFuncionario(Funcionario funcionario)
         {
-            if(_funcionários is null)
+            if (_funcionários is null)
             {
                 _funcionários = new List<Funcionario>();
             }
@@ -20,12 +20,15 @@ namespace Classe2.Sistema
         {
             var funcionario = _funcionários.FirstOrDefault(func => func.NoIdentidade == noIdentidade);
 
-            if(funcionario == null)
+            if (funcionario == null)
             {
                 throw new Exception($"Funcionario com identidade {noIdentidade} não encontrado");
             }
 
             return funcionario.CalcularIdade;
         }
+
+        public int QuantidadeFuncionarios(int idDepartamento) 
+            => _funcionários.Count(func => func.IdDepartamento == idDepartamento);
     }
 }
