@@ -20,5 +20,7 @@ namespace Classe2.Exercicio1.Repositorios
 
             _departamentos.AddRange(departamentos);
         }
+
+        public Departamento? RetornarDepartamentoPorId(int idDepartamento) => _departamentos?.FirstOrDefault(dep => dep.IdDepartamento == idDepartamento);
     }
 }

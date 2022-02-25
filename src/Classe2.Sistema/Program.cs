@@ -30,6 +30,15 @@ try
     funcionario3.NoIdentidade = "658.658.555-54";
     funcionario3.IdDepartamento = 2;
 
+    FuncionarioTerceirizado funcionario4 = new FuncionarioTerceirizado();
+    funcionario4.NoContrato = 123;
+    funcionario4.Nome = "Pedro";
+    funcionario4.Especialidade = "XPTO";
+    funcionario4.AnosExperiencia = 6;
+    funcionario4.AdicionarDataNascimento(new DateTime(1998, 10, 30));
+    funcionario4.NoIdentidade = "658.658.987-54";
+    funcionario4.IdDepartamento = 2;
+
     Departamento departamento1 = new Departamento() { 
         IdDepartamento = 1,
         Nome = "Financeiro",
@@ -43,26 +52,33 @@ try
         Setor = "TI"
     };
 
-    var departamentos = new List<Departamento> { departamento1, departamento2 };
 
-    RepositorioDeFuncionario repositorioDeFuncionario = new RepositorioDeFuncionario();
-    repositorioDeFuncionario.AdicionarFuncionario(funcionario1);
-    repositorioDeFuncionario.AdicionarFuncionario(funcionario2);
-    repositorioDeFuncionario.AdicionarFuncionario(funcionario3);
+    departamento1.AdicionarFuncionario(funcionario1);
+    departamento1.AdicionarFuncionario(funcionario2);
+    departamento2.AdicionarFuncionario(funcionario3);
+    departamento2.AdicionarFuncionario(funcionario4);
+
+
+    var departamentos = new List<Departamento> { departamento1, departamento2 };
 
     RepositorioDeDepartamento repositorioDeDepartamento = new RepositorioDeDepartamento();
     repositorioDeDepartamento.AdicionarDepartamentos(departamentos);
 
     Console.WriteLine("-----------------------");
-    Console.WriteLine("Digite o número de identidade: ");
-    var noIdentidade = Console.ReadLine();
-    var idade = repositorioDeFuncionario.RetornatIdadeFuncionario(noIdentidade);
-    Console.WriteLine($"A identidade do funcionario é: {idade}");
-    Console.WriteLine("-----------------------");
     Console.WriteLine("Digite o Id do Departamento: ");
     var idDepartamento = int.Parse(Console.ReadLine());
-    var quantidadeDeFuncionarios = repositorioDeFuncionario.QuantidadeFuncionarios(idDepartamento);
-    Console.WriteLine($"A quantidade de funcionários do departamento é é: {quantidadeDeFuncionarios}");
+    var departamento = repositorioDeDepartamento.RetornarDepartamentoPorId(idDepartamento);
+    Console.WriteLine("Digite o número de identidade: ");
+    var noIdentidade = Console.ReadLine();
+    var idade = departamento?.RetornatIdadeFuncionario(noIdentidade);
+    Console.WriteLine($"A identidade do funcionario é: {idade}");
+    Console.WriteLine("-----------------------");
+    var quantidadeDeFuncionarios = departamento?.QuantidadeFuncionarios(idDepartamento);
+    Console.WriteLine($"A quantidade de funcionários do departamento é: {quantidadeDeFuncionarios}");
+    
+    Console.WriteLine("-----------------------");
+    var noContrato = departamento?.RetornatNoContratoFuncionario(noIdentidade);
+    Console.WriteLine($"O número do contrato é: {noContrato}");
 
 
 
