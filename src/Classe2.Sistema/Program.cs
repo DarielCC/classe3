@@ -61,6 +61,8 @@ try
 
     var departamentos = new List<Departamento> { departamento1, departamento2 };
 
+    departamentos.Remove(departamento1);
+
     RepositorioDeDepartamento repositorioDeDepartamento = new RepositorioDeDepartamento();
     repositorioDeDepartamento.AdicionarDepartamentos(departamentos);
 
